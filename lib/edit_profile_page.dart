@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'welcome_page.dart'; // Import halaman WelcomePage
 
 class EditProfilePage extends StatefulWidget {
   final String name;
@@ -45,7 +46,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _saveProfile() {
-    // Panggil fungsi onSave yang diberikan dari ProfilePage
     widget.onSave(
       nameController.text,
       nimController.text,
@@ -53,6 +53,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
       phoneController.text,
     );
     Navigator.pop(context); // Kembali ke halaman profil
+  }
+
+  void _deleteProfile() {
+    // Mengosongkan field profil
+    widget.onSave('', '', '', '');
+
+    // Navigasi ke halaman WelcomePage setelah menghapus data profil
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const WelcomePage()), 
+      (route) => false, // Menghapus semua halaman sebelumnya dari stack
+    );
   }
 
   @override
@@ -102,48 +114,61 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       TextField(
                         controller: nameController,
                         decoration: const InputDecoration(labelText: 'Nama'),
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode()); // Menyembunyikan keyboard saat mengetik
-                        },
                       ),
                       TextField(
                         controller: nimController,
                         decoration: const InputDecoration(labelText: 'NIM'),
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode()); // Menyembunyikan keyboard saat mengetik
-                        },
                       ),
                       TextField(
                         controller: emailController,
                         decoration: const InputDecoration(labelText: 'Email'),
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode()); // Menyembunyikan keyboard saat mengetik
-                        },
                       ),
                       TextField(
                         controller: phoneController,
                         decoration: const InputDecoration(labelText: 'Telepon'),
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode()); // Menyembunyikan keyboard saat mengetik
-                        },
                       ),
                     ],
                   ),
                 ),
               ),
               const SizedBox(height: 20),
-              // Tombol Simpan
-              ElevatedButton(
-                onPressed: _saveProfile,
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  backgroundColor: const Color(0xFF570606), // Warna latar belakang tombol
-                  foregroundColor: Colors.white, // Warna teks tombol
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
+              // Atur ukuran button dalam Row dengan SizedBox
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  // Tombol Simpan
+                  SizedBox(
+                    width: 150, // Ukuran lebar tombol
+                    child: ElevatedButton(
+                      onPressed: _saveProfile,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        backgroundColor: const Color(0xFF570606), // Warna latar belakang tombol
+                        foregroundColor: Colors.white, // Warna teks tombol
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      child: const Text('Simpan Perubahan'),
+                    ),
                   ),
-                ),
-                child: const Text('Simpan Perubahan'),
+                  // Tombol Delete
+                  SizedBox(
+                    width: 150, // Ukuran lebar tombol sama dengan tombol "Simpan Perubahan"
+                    child: ElevatedButton(
+                      onPressed: _deleteProfile,
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        backgroundColor: Colors.red, // Warna latar belakang tombol delete
+                        foregroundColor: Colors.white, // Warna teks tombol delete
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                      ),
+                      child: const Text('Hapus Profile'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

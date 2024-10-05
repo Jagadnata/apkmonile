@@ -6,6 +6,7 @@ import 'mata_kuliah_page.dart'; // Pastikan import mata_kuliah_page
 import 'profile_page.dart'; // Pastikan import profile_page
 import 'attendance_page.dart'; // Import attendance_page
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -80,6 +81,7 @@ class _MyAppState extends State<MyApp> {
           email: email,
           phone: phone,
         ), // Rute untuk ProfilePage
+        
       },
     );
   }
