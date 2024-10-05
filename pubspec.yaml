@@ -1,0 +1,27 @@
+name: myapp
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'  # Versi Dart SDK yang sudah benar
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  intl: ^0.18.1  # Pastikan intl sudah ada di sini
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.2
+
+flutter:
+  assets:
+    - images/background.jpg
+    - images/MatKul.png
+    - images/absen.png
+    - images/profiles.png
+  uses-material-design: true
